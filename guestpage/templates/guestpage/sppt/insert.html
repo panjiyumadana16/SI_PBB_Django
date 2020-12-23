@@ -1,0 +1,75 @@
+{% extends 'guestpage/base.html' %}
+<!-- Content Area -->
+{% block content %}
+<div class="container-fluid bg-dark text-light py-1">
+    <div class="container py-2">
+        <div class="container border-bottom">
+            <h4>Tambah Data SPPTk</h4>
+        </div>
+    </div>
+</div>
+<div class="container bg-light my-3 rounded px-0" style="height: auto;">
+    <hr class="" style="width: 100%; height: 10px; background-color: darkslateblue; border-radius: 5px 5px 0 0;">
+    <div class="container pb-3">
+        <div class="row container">
+            <div class="col-12 text-left">
+                <h5><i class="fas fa-file"></i> Form tambah data SPPT</h5>
+                <hr class="bg-secondary mb-4">
+            </div>
+            <div class="container col-12">
+                <form class="form" action="{% url 'sppt_create' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="nop">NOP</label>
+                        <input type="text" class="form-control" name="nop" id="nop" placeholder="Nomor Object Pajak"
+                            required pattern="[0-9]{18}" minlength="18" maxlength="18">
+                    </div>
+                    <div class="form-group">
+                        <label for="tahun_pajak">Tahun Pajak</label>
+                        <input type="number" class="form-control" name="tahun_pajak" id="tahun_pajak"
+                            placeholder="Tahun Pajak" min="1980" max="{% now 'Y' %}" required value="{% now 'Y' %}">
+                    </div>
+                    <div class="form-group">
+                        <label for="letak_pajak">Letak Objek Pajak</label>
+                        <textarea name="letak_objek_pajak" id="letak_pajak" class="form-control"
+                            placeholder="Jl. Desa ,RT 001 RW 01 ,Desa Blimbing ,Kecamatan Tarokan ,Kabupaten Kediri"
+                            required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_wp">Wajib Pajak Terhutang</label>
+                        <select name="id_wp" id="id_wp" class="form-control select2-single" style="width: 100%;">
+                            <option value="" selected disabled>Pilih wajib pajak terhutang...</option>
+                            {% for wp in wajibpajak %}
+                            <option value="{{ wp.id }}"> {{ wp.nik }} - {{ wp.nama }} </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="ttl">NJOP (Nilai Jual Objek Pajak) Bumi dan Bangunan</label>
+                        <div class="form-row">
+                            <div class="col-6">
+                                <input type="number" class="form-control" name="op_bumi_njop" id="ttl"
+                                    placeholder="Total NJOP Bumi / Tanah" min="1" required>
+                            </div>
+                            <div class="col-6">
+                                <input type="number" class="form-control" name="op_bangunan_njop" id="ttl"
+                                    placeholder="Total NJOP Bangunan" min="1" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tgl_jatuh_tempo">Tanggal jatuh tempo</label>
+                        <input type="date" class="form-control" name="tgl_jatuh_tempo" id="tgl_jatuh_tempo" required>
+                    </div>
+                    <div class="">
+                        <button class="btn btn-outline-success" type="submit">
+                            <i class="fas fa-save"></i> Simpan Data
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Content Area End -->
+{% endblock %}

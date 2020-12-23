@@ -1,0 +1,79 @@
+{% extends 'guestpage/base.html' %}
+<!-- Content Area -->
+{% block content %}
+<div class="container-fluid bg-dark text-light py-1">
+    <div class="container py-2">
+        <div class="container border-bottom">
+            <h4>SPPT (Surat Pemberitahuan Pajak Terhutang)</h4>
+        </div>
+    </div>
+</div>
+<div class="container bg-light my-3 rounded border-left px-0" style="height: auto;">
+    <hr class="" style="width: 100%; height: 10px; background-color: darkslateblue; border-radius: 5px 5px 0 0;">
+    <div class="container pb-3">
+        <div class="text-center">
+            <h5>Data SPPT</h5>
+            <a href="{% url 'sppt_insert' %}" class="btn btn-outline-success"><i class="fas fa-plus"></i> Tambah
+                Data</a>
+            <hr class="bg-secondary mb-4">
+        </div>
+        <div class="row">
+            <div class="col-12 table-hover table-responsive">
+                <table class="table display w-100" id="myTable">
+                    <thead class="text-center">
+                        <tr>
+                            <th width="3%">ID</th>
+                            <th>NOP</th>
+                            <th>Tahun Pajak</th>
+                            <th>ID WP</th>
+                            <th>PBB Terhutang</th>
+                            <th>Tgl Jatuh Tempo</th>
+                            <th>Status</th>
+                            <th width="5%">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tfoot class="text-center">
+                        <tr>
+                            <th width="3%">ID</th>
+                            <th>NOP</th>
+                            <th>Tahun Pajak</th>
+                            <th>ID WP</th>
+                            <th>PBB Terhutang</th>
+                            <th>Tgl Jatuh Tempo</th>
+                            <th>Status</th>
+                            <th width="5%">Aksi</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for sp in sppt %}
+                        <tr>
+                            <td class="text-center">{{ sp.id }}</td>
+                            <td>{{ sp.nop }}</td>
+                            <td class="text-center">{{ sp.tahun_pajak }}</td>
+                            <td class="text-center">{{ sp.id_wp }}</td>
+                            <td class="text-right">Rp. {{ sp.pbb_terhutang }}</td>
+                            <td class="text-primary text-center">{{ sp.tgl_jatuh_tempo }}</td>
+                            <td>
+                                {% if sp.status == 'Lunas' %}
+                                <span class="text-success">{{ sp.status }}</span>
+                                {% elif sp.status == 'Belum Lunas' %}
+                                <span class="text-danger">{{ sp.status }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                <a href="{% url 'sppt_edit' pk=sp.id %}" class=" btn btn-warning mb-1"><i
+                                        class="fas fa-pencil-alt"></i></a>
+                                <a href="{% url 'sppt_delete' pk=sp.id %}" class="btn btn-danger"
+                                    onclick="return confirm('Apakah anda yakin akan menghapus data dengan ID : {{ sp.id }}  ,NOP : {{ sp.nop }} ?')"><i
+                                        class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Content Area End -->
+{% endblock %}

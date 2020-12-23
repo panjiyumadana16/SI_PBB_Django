@@ -1,0 +1,50 @@
+<html>
+
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+    <meta name=Generator content="Microsoft Word 15 (filtered)">
+    <style>
+
+    </style>
+
+</head>
+
+<body lang=EN-US>
+
+    <div class=WordSection1>
+        <div
+            style="width: 100%; height: 60px; align-content: center; text-align: center; background-color: darkslateblue; padding-top:10px;">
+            <p style="font-size: large; color: white;">Data Wajib Pajak {% now 'Y' %}</p>
+        </div>
+
+
+        <table class=MsoTableGrid border=1 style='border-collapse:collapse;border:none ;width: 100%;'>
+            <tr style="margin:10px; padding: 3px;">
+                <th width="3%">ID</th>
+                <th width="13%">NIK</th>
+                <th width="33%">Nama</th>
+                <th width="8%">JK</th>
+                <th width="10%">TTL</th>
+                <th width="33%">Alamat</th>
+            </tr>
+
+            {% for wp in wajibpajak %}
+            <tr style="padding: 1px 1px; text-align: center;">
+                <td>{{ wp.id }}</td>
+                <td>{{ wp.nik }}</td>
+                <td>{{ wp.nama }}</td>
+                <td>{{ wp.jenis_kelamin }}</td>
+                <td>{{ wp.tempat_lahir }}, {{ wp.tanggal_lahir|date:'Y-m-d' }}</td>
+                <td>{{ wp.alamat }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+        <p class=MsoNormal><span lang=EN-ID>&nbsp;</span></p>
+
+    </div>
+
+</body>
+
+</html>

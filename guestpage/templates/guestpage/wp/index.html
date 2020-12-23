@@ -1,0 +1,69 @@
+{% extends 'guestpage/base.html' %}
+<!-- Content Area -->
+{% block content %}
+<div class="container-fluid bg-dark text-light py-1">
+    <div class="container py-2">
+        <div class="container border-bottom">
+            <h4>Wajip Pajak</h4>
+        </div>
+    </div>
+</div>
+<div class="container bg-light my-3 rounded border-left px-0" style="height: auto;">
+    <hr class="" style="width: 100%; height: 10px; background-color: darkslateblue; border-radius: 5px 5px 0 0;">
+    <div class="container pb-3">
+        <div class="text-center">
+            <h5>Data Wajib Pajak</h5>
+            <a href="{% url 'wp_insert' %}" class="btn btn-outline-success"><i class="fas fa-plus"></i> Tambah Data</a>
+            <hr class="bg-secondary mb-4">
+        </div>
+        <div class="row">
+            <div class="col-12 table-hover table-responsive">
+                <table class="table display w-100" id="myTable">
+                    <thead>
+                        <tr>
+                            <th width="5%">ID</th>
+                            <th>NIK</th>
+                            <th>Nama</th>
+                            <th>JK</th>
+                            <th>TTL</th>
+                            <th width="28%">Alamat</th>
+                            <th width="5%">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>NIK</th>
+                            <th>Nama</th>
+                            <th>JK</th>
+                            <th>TTL</th>
+                            <th>Alamat</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for wp in wajibpajak %}
+                        <tr>
+                            <td class="text-center">{{ wp.id }}</td>
+                            <td>{{ wp.nik }}</td>
+                            <td>{{ wp.nama }}</td>
+                            <td>{{ wp.jenis_kelamin }}</td>
+                            <td>{{ wp.tempat_lahir }}, {{ wp.tanggal_lahir|date:'Y-m-d' }}</td>
+                            <td>{{ wp.alamat }}</td>
+                            <td class="text-center">
+                                <a href="{% url 'wp_edit' pk=wp.id %}" class=" btn btn-warning mb-1"><i
+                                        class="fas fa-pencil-alt"></i></a>
+                                <a href="{% url 'wp_delete' pk=wp.id %}" class="btn btn-danger"
+                                    onclick="return confirm('Apakah anda yakin akan menghapus data dengan NIK : {{ wp.nik }} ,Nama : {{ wp.nama }}?')"><i
+                                        class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Content Area End -->
+{% endblock %}

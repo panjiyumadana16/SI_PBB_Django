@@ -1,0 +1,61 @@
+{% extends 'guestpage/base.html' %}
+<!-- Content Area -->
+{% block content %}
+<div class="container-fluid bg-dark text-light py-1">
+    <div class="container py-2">
+        <div class="container border-bottom">
+            <h4>Transaksi Pembayaran PBB</h4>
+        </div>
+    </div>
+</div>
+<div class="container bg-light my-3 rounded border-left px-0" style="height: auto;">
+    <hr class="" style="width: 100%; height: 10px; background-color: darkslateblue; border-radius: 5px 5px 0 0;">
+    <div class="container pb-3">
+        <div class="text-center">
+            <h5>Data Transaksi Pembayaran PBB</h5>
+            <a href="{% url 'trx_insert' %}" class="btn btn-outline-success"><i class="fas fa-plus"></i> Tambah
+                Data</a>
+            <hr class="bg-secondary mb-4">
+        </div>
+        <div class="row">
+            <div class="col-12 table-hover table-responsive">
+                <table class="table display w-100" id="myTable">
+                    <thead class="text-center">
+                        <tr>
+                            <th width="3%">ID</th>
+                            <th>ID Pajak</th>
+                            <th>Waktu Bayar</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tfoot class="text-center">
+                        <tr>
+                            <th width="3%">ID</th>
+                            <th>ID Pajak</th>
+                            <th>Waktu Bayar</th>
+                            <th>Status</th>
+                        </tr>
+                    </tfoot>
+                    <tbody class="text-center">
+                        {% for trx in transaksi %}
+                        <tr>
+                            <td class="text-center">{{ trx.id }}</td>
+                            <td>{{ trx.id_pajak }}</td>
+                            <td>{{ trx.waktu_bayar }}</td>
+                            <td>
+                                {% if trx.status == 'Lunas' %}
+                                <span class="text-success">{{ trx.status }}</span>
+                                {% elif trx.status == 'Belum Lunas' %}
+                                <span class="text-danger">{{ trx.status }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Content Area End -->
+{% endblock %}

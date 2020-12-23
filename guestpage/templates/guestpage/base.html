@@ -1,0 +1,97 @@
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PBB - Desa Blimbing</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/dataTables/jquery.dataTables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/fontawesome/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/select2/css/select2.min.css' %}">
+    <link rel="icon" href="{% static 'img/logo.png' %}">
+</head>
+
+<body style="background-color: rgb(218, 218, 218);">
+    <!-- Navbar Area -->
+    <div class="container-fluid py-2" style="background-color: darkslateblue; height: 40px;">
+        <div class="container">
+            <a class="dropdown-toggle text-white mr-3" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Profile
+            </a>
+            <a class="text-light" href="#">
+                Tentang Web
+            </a>
+
+            <div class="dropdown-menu fixed-top" style="border-radius: 0 0 10px 10px;" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Desa Blimbing</a>
+                <a class="dropdown-item" href="#">Kepala Desa</a>
+                <a class="dropdown-item" href="#">Petugas Pajak</a>
+            </div>
+
+            <!-- <a href="" class="btn-light float-right text-center text-dark" style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;
+                padding: 5px; width: 100px; text-decoration: none;">
+                LOGIN
+            </a> -->
+        </div>
+    </div>
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark shadow"
+        style="height: 80px; background-color: rgb(241, 241, 241);">
+        <div class="container">
+            <a class="navbar-brand text-dark mr-5" href="{% url 'guest_index' %}">
+                <img src="{% static 'img/logo.png' %}" alt="" style="width: 40px;">
+                PBB - Desa Blimbing
+            </a>
+            <button class="navbar-toggler" style="background-color: darkslateblue;" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto text-center rounded" style="background-color: darkslateblue;">
+                    {% url 'guest_index' as url %}
+                    <li class="nav-item mx-2 {% if request.path == url %} active {% endif %}">
+                        <a class="nav-link btn rounded" href="{% url 'guest_index' %}">Beranda</a>
+                    </li>
+                    {% url 'wp_index' as url %}
+                    <li class="nav-item mx-2 {% if request.path == url %} active {% endif %}">
+                        <a class="nav-link btn rounded" href="{% url 'wp_index' %}">Wajib Pajak</a>
+                    </li>
+                    {% url 'sppt_index' as url %}
+                    <li class="nav-item mx-2 {% if request.path == url %} active {% endif %}">
+                        <a class="nav-link btn rounded" href="{% url 'sppt_index' %}">SPPT</a>
+                    </li>
+                    {% url 'trx_index' as url %}
+                    <li class="nav-item mx-2 {% if request.path == url %} active {% endif %}">
+                        <a class="nav-link btn rounded" href="{% url 'trx_index' %}">Transaksi Pajak</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar Area End -->
+    {% block content %}
+    {% endblock %}
+    <!-- Last part -->
+</body>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/propper.js' %}"></script>
+<script src="{% static 'vendor/dataTables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
+<script src="{% static 'vendor/select2/js/select2.min.js' %}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+    $(document).ready(function () {
+        $('.select2-single').select2();
+    });
+</script>
+<!-- Last part End -->
+
+</html>

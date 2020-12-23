@@ -1,0 +1,77 @@
+{% extends 'guestpage/base.html' %}
+<!-- Content Area -->
+{% block content %}
+<div class="container-fluid bg-dark text-light py-1">
+    <div class="container py-2">
+        <div class="container border-bottom">
+            <h4>Edit Data Wajib Pajak</h4>
+        </div>
+    </div>
+</div>
+<div class="container bg-light my-3 rounded px-0" style="height: auto;">
+    <hr class="" style="width: 100%; height: 10px; background-color: darkslateblue; border-radius: 5px 5px 0 0;">
+    <div class="container pb-3">
+        <div class="row container">
+            <div class="col-12 text-left">
+                <h5><i class="fas fa-file"></i> Form Edit data Wajib Pajak</h5>
+                <hr class="bg-secondary mb-4">
+            </div>
+            <div class="container col-12">
+                {% for wp in wajibpajak %}
+                <form class="form" action="{% url 'wp_update' pk=wp.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="nik">NIK</label>
+                        <input type="number" class="form-control" name="nik" id="nik"
+                            placeholder="Nomor Induk Kependudukan" required value="{{ wp.nik }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="nama">Nama</label>
+                        <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" maxlength="64"
+                            required value="{{ wp.nama }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="jenis_kelamin">Jenis Kelamin</label>
+                        <select name="jenis_kelamin" id="jenis_kelamin" class="form-control">
+                            <option value="" disabled>Pilih jenis kelamin...</option>
+                            {% if wp.jenis_kelamin == 'Laki-laki' %}
+                            <option value="Laki-laki" selected> Laki-laki </option>
+                            <option value="Perempuan"> Perempuan </option>
+                            {% elif wp.jenis_kelamin == 'Perempuan' %}
+                            <option value="Laki-laki"> Laki-laki </option>
+                            <option value="Perempuan" selected> Perempuan </option>
+                            {% endif %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="ttl">Tempat dan Tanggal Lahir</label>
+                        <div class="form-row">
+                            <div class="col-6">
+                                <input type="text" class="form-control" name="tempat_lahir" id="ttl"
+                                    placeholder="Tempat Lahir" maxlength="64" required value="{{ wp.tempat_lahir }}">
+                            </div>
+                            <div class="col-6">
+                                <input type="date" class="form-control" name="tanggal_lahir" id="ttl" required
+                                    value="{{ wp.tanggal_lahir|date:'Y-m-d' }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" form-group">
+                        <label for="alamat">Alamat</label>
+                        <textarea name="alamat" id="alamat" class="form-control"
+                            placeholder="Jl. Desa ,RT 001 RW 01 ,Desa Blimbing ,Kecamatan Tarokan ,Kabupaten Kediri"
+                            required>{{ wp.alamat }}</textarea>
+                    </div>
+                    <div class="">
+                        <button class="btn btn-outline-success" type="submit">
+                            <i class="fas fa-save"></i> Simpan Data
+                        </button>
+                    </div>
+                </form>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Content Area End -->
+{% endblock %}
